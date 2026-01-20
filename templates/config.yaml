@@ -1,0 +1,53 @@
+# GitHub Issue Agent Configuration
+# https://github.com/your-username/github-issue-agent
+
+# GitHub Personal Access Token
+# You can also set this via GITHUB_TOKEN environment variable
+github_token: ${GITHUB_TOKEN}
+
+# What to monitor - specify organizations and/or individual repositories
+targets:
+  # Monitor entire organizations (fetches all repos with issues enabled)
+  organizations:
+    - example-org
+    # - another-org
+
+  # Monitor specific repositories (format: owner/repo)
+  repositories: []
+    # - owner/specific-repo
+    # - another-owner/another-repo
+
+# Scanning options
+scan:
+  # How often to scan for new issues (in minutes)
+  interval_minutes: 5
+  
+  # Filter issues (optional)
+  filters:
+    # Issue state: open, closed, or all
+    state: open
+    
+    # Only include issues with these labels (empty = all issues)
+    labels: []
+    # labels:
+    #   - bug
+    #   - help wanted
+    #   - good first issue
+
+# Storage paths (supports ~ for home directory)
+paths:
+  # Where to clone repositories
+  repos_dir: ~/.github-agent/repos
+  
+  # Where to store database and logs
+  data_dir: ~/.github-agent/data
+
+# Notification settings
+notifications:
+  # Enable/disable desktop notifications
+  enabled: true
+  
+  # Notify on these events
+  on_new_issue: true
+  on_scan_complete: false
+  on_error: true
