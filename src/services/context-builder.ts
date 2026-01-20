@@ -330,19 +330,18 @@ function generateTaskFile(context: TaskContext): string {
   lines.push('');
   lines.push('## How to Fix');
   lines.push('');
-  lines.push('1. Open this repository in Cursor:');
+  lines.push('1. Open this repository in your editor:');
   lines.push(`   \`\`\`bash`);
-  lines.push(`   cursor ${context.repoPath}`);
+  lines.push(`   github-agent open ${context.issue.number}`);
   lines.push(`   \`\`\``);
   lines.push('');
   lines.push('2. The branch has already been created: `' + context.branchName + '`');
   lines.push('');
-  lines.push('3. Ask Cursor AI to help fix the issue:');
-  lines.push(`   > "Fix issue #${context.issue.number}: ${context.issue.title}"`);
+  lines.push('3. Fix the issue described above');
   lines.push('');
-  lines.push('4. After fixing, run:');
+  lines.push('4. After fixing, push your changes:');
   lines.push(`   \`\`\`bash`);
-  lines.push(`   mind-agent push ${context.issue.number}`);
+  lines.push(`   github-agent push ${context.issue.number}`);
   lines.push(`   \`\`\``);
   lines.push('');
 

@@ -74,7 +74,7 @@ function isProcessRunning(pid: number): boolean {
 
 program
   .name('github-agent')
-  .description('Monitor GitHub organizations and repositories for issues, prepare context, and fix them with your AI coding assistant')
+  .description('Monitor GitHub organizations and repositories for issues, prepare context, and fix them')
   .version('1.0.0');
 
 // Init command
@@ -256,7 +256,7 @@ program
 // Open command
 program
   .command('open <issue>')
-  .description('Open an issue in Cursor for fixing')
+  .description('Open an issue in your editor for fixing')
   .action(async (issueArg: string) => {
     if (!findConfigFile()) {
       console.log('No configuration found. Run "github-agent init" to create one.');
@@ -300,20 +300,18 @@ program
         return;
       }
 
-      console.log(`Opening ${issue.repo_name}#${issue.issue_number} in Cursor...`);
+      const config = getConfig();
+      const editor = config.editor;
+      
+      console.log(`Opening ${issue.repo_name}#${issue.issue_number} in ${editor}...`);
       console.log(`Title: ${issue.title}`);
       console.log(`Branch: ${issue.branch_name}`);
       console.log('');
 
-      // Open in Cursor
-      exec(`cursor "${repoPath}"`, (error) => {
+      // Open in configured editor
+      exec(`${editor} "${repoPath}"`, (error) => {
         if (error) {
-          // Try VSCode as fallback
-          exec(`code "${repoPath}"`, (err2) => {
-            if (err2) {
-              console.log(`Could not open automatically. Manual path: ${repoPath}`);
-            }
-          });
+          console.log(`Could not open with "${editor}". Manual path: ${repoPath}`);
         }
       });
 
@@ -321,9 +319,6 @@ program
       if (issue.task_file_path && fs.existsSync(issue.task_file_path)) {
         console.log('Task file:');
         console.log(issue.task_file_path);
-        console.log('');
-        console.log('TIP: Ask your AI assistant:');
-        console.log(`  "Fix issue #${issue.issue_number}: ${issue.title}"`);
       }
 
       // Update status to in_progress

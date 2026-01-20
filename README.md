@@ -11,7 +11,6 @@ A background agent that monitors GitHub organizations and repositories for issue
 - **Smart context building** - Automatically gathers relevant code files for each issue
 - **Branch management** - Creates feature branches for each issue
 - **Desktop notifications** - macOS notifications when new issues are found
-- **AI-ready workflow** - Opens issues in Cursor/VSCode with context ready for your AI assistant
 
 ## Quick Start
 
@@ -93,6 +92,10 @@ notifications:
   on_new_issue: true
   on_scan_complete: false
   on_error: true
+
+# Editor to open repositories with
+# Examples: code, cursor, vim, nvim, subl
+editor: code
 ```
 
 ### Environment Variables
@@ -122,7 +125,7 @@ export GITHUB_TOKEN=ghp_your_token_here
 | `github-agent stop` | Stop the daemon |
 | `github-agent status` | Show queued issues and agent status |
 | `github-agent scan` | Run a single scan immediately |
-| `github-agent open <issue>` | Open issue in Cursor/VSCode |
+| `github-agent open <issue>` | Open issue in your editor |
 | `github-agent push <issue>` | Push your fix |
 | `github-agent diff <issue>` | Show diff for an issue |
 | `github-agent logs` | Show daemon logs |
@@ -143,10 +146,9 @@ github-agent status
 
 # 4. Open an issue to fix
 github-agent open 42
-# Opens Cursor with the repo, context file ready
+# Opens your editor with the repo
 
-# 5. Ask your AI assistant to fix it
-# "Fix issue #42: Bug in authentication"
+# 5. Fix the issue
 
 # 6. Push your fix
 github-agent push 42
@@ -189,7 +191,7 @@ github-agent open owner/repo#42
 ├─────────────────────────────────────────────────────────────┤
 │  1. Run: github-agent status                                │
 │  2. Run: github-agent open 42                               │
-│  3. Cursor opens with context → Ask AI to fix               │
+│  3. Your editor opens → Fix the issue                       │
 │  4. Run: github-agent push 42                               │
 │  5. Create PR on GitHub                                     │
 └─────────────────────────────────────────────────────────────┘

@@ -51,3 +51,7 @@ notifications:
   on_new_issue: true
   on_scan_complete: false
   on_error: true
+
+# Editor to open repositories with
+# Examples: code, cursor, vim, nvim, sublime, atom, idea
+editor: code

@@ -1,6 +1,6 @@
 {
   "name": "@parallel-labs/mind-agent",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Monitor GitHub organizations and repositories for issues, prepare context, and fix them",
   "main": "dist/index.js",
   "bin": {

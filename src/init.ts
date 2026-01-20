@@ -14,6 +14,8 @@ interface InitAnswers {
   issueState: 'open' | 'closed' | 'all';
   labels: string;
   enableNotifications: boolean;
+  editor: string;
+  editorCustom?: string;
 }
 
 /**
@@ -128,6 +130,27 @@ export async function runInit(): Promise<void> {
       message: 'Enable desktop notifications?',
       default: true,
     },
+    {
+      type: 'list',
+      name: 'editor',
+      message: 'Which editor to open repositories with?',
+      choices: [
+        { name: 'VS Code (code)', value: 'code' },
+        { name: 'Cursor (cursor)', value: 'cursor' },
+        { name: 'Vim (vim)', value: 'vim' },
+        { name: 'Neovim (nvim)', value: 'nvim' },
+        { name: 'Sublime Text (subl)', value: 'subl' },
+        { name: 'Other (specify)', value: 'other' },
+      ],
+      default: 'code',
+    },
+    {
+      type: 'input',
+      name: 'editorCustom',
+      message: 'Enter editor command:',
+      when: (answers) => answers.editor === 'other',
+      validate: (input: string) => input.trim() ? true : 'Please enter an editor command',
+    },
   ]);
 
   // Build config object
@@ -207,6 +230,7 @@ interface ConfigObject {
     on_scan_complete: boolean;
     on_error: boolean;
   };
+  editor: string;
 }
 
 function buildConfig(answers: InitAnswers): ConfigObject {
@@ -245,6 +269,7 @@ function buildConfig(answers: InitAnswers): ConfigObject {
       on_scan_complete: false,
       on_error: true,
     },
+    editor: answers.editor === 'other' ? (answers.editorCustom || 'code') : answers.editor,
   };
 }
 
@@ -309,6 +334,9 @@ function generateYaml(config: ConfigObject): string {
   lines.push(`  on_new_issue: ${config.notifications.on_new_issue}`);
   lines.push(`  on_scan_complete: ${config.notifications.on_scan_complete}`);
   lines.push(`  on_error: ${config.notifications.on_error}`);
+  lines.push('');
+  lines.push('# Editor to open repositories with');
+  lines.push(`editor: ${config.editor}`);
   lines.push('');
 
   return lines.join('\n');

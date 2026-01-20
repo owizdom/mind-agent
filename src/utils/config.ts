@@ -48,6 +48,7 @@ export interface ConfigFile {
   scan: ScanConfig;
   paths: PathsConfig;
   notifications: NotificationsConfig;
+  editor: string;
 }
 
 export interface Config {
@@ -74,6 +75,7 @@ export interface Config {
     onScanComplete: boolean;
     onError: boolean;
   };
+  editor: string;
   configPath: string;
 }
 
@@ -227,6 +229,7 @@ function loadConfig(): Config {
       on_scan_complete: fileConfig.notifications?.on_scan_complete ?? defaults.notifications!.on_scan_complete,
       on_error: fileConfig.notifications?.on_error ?? defaults.notifications!.on_error,
     },
+    editor: (fileConfig as any).editor || 'code',
   };
   
   // Validate required fields
@@ -288,6 +291,7 @@ function loadConfig(): Config {
       onScanComplete: merged.notifications.on_scan_complete,
       onError: merged.notifications.on_error,
     },
+    editor: merged.editor,
     configPath: resolvedConfigPath,
   };
 }
