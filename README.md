@@ -1,6 +1,8 @@
-# GitHub Issue Agent
+# Mind Agent
 
 A background agent that monitors GitHub organizations and repositories for issues, prepares context, and queues them for you to fix using your AI coding assistant (Cursor, Copilot, etc.).
+
+[![npm version](https://badge.fury.io/js/@parallel-labs%2Fmind-agent.svg)](https://www.npmjs.com/package/@parallel-labs/mind-agent)
 
 ## Features
 
@@ -15,7 +17,7 @@ A background agent that monitors GitHub organizations and repositories for issue
 
 ```bash
 # Install globally
-npm install -g github-issue-agent
+npm install -g @parallel-labs/mind-agent
 
 # Initialize configuration
 github-agent init
@@ -44,8 +46,8 @@ npx @parallel-labs/mind-agent init
 ### From source
 
 ```bash
-git clone https://github.com/your-username/github-issue-agent
-cd github-issue-agent
+git clone https://github.com/owizdom/mind-agent.git
+cd mind-agent
 npm install
 npm run build
 npm link
