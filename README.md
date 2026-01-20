@@ -1,6 +1,6 @@
 # Mind Agent
 
-A background agent that monitors GitHub organizations and repositories for issues, prepares context, and queues them for you to fix using your AI coding assistant (Cursor, Copilot, etc.).
+A background agent that monitors GitHub organizations and repositories for issues, prepares context, and queues them for you to fix.
 
 [![npm version](https://badge.fury.io/js/@parallel-labs%2Fmind-agent.svg)](https://www.npmjs.com/package/@parallel-labs/mind-agent)
 
